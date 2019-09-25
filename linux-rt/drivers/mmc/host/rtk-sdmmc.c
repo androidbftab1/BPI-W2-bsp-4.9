@@ -3762,6 +3762,11 @@ static int rtk_sdmmc_probe(struct platform_device *pdev)
 	}
 
 	rtk_sdmmc_show_version();
+#ifdef BPI
+#else
+	printk("BPI: reset rtk_sdmmc ...\n");
+	reset_control_assert(rstc_cr);
+#endif
 
 	do_stop_command_wo_complete = 0; // probe stage
 	wait_stop_command_irq_done = 0; // probe stage
